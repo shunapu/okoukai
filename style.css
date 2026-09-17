@@ -18,19 +18,19 @@ body {
     place-items: center;
     color: var(--ink);
     background:
-        radial-gradient(circle at 15% 15%, #2c2557 0, transparent 33%),
-        radial-gradient(circle at 90% 85%, #122d50 0, transparent 35%),
-        #08091a;
+        radial-gradient(circle at 15% 10%, rgba(69, 57, 157, .55) 0, transparent 30%),
+        radial-gradient(circle at 90% 85%, rgba(0, 167, 190, .24) 0, transparent 34%),
+        #050719;
     font-family: "Space Grotesk", system-ui, sans-serif;
 }
 
 .game-shell { width: min(1120px, 94vw); padding: 28px 0; }
 .game-header { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 18px; }
 .eyebrow { margin: 0 0 8px; color: var(--accent); font: 500 11px "DM Mono", monospace; letter-spacing: .16em; }
-h1 { margin: 0; font-size: clamp(28px, 5vw, 46px); letter-spacing: -.05em; }
+h1 { margin: 0; color: #e8edff; font-size: clamp(28px, 5vw, 46px); letter-spacing: -.05em; text-shadow: 0 0 22px rgba(111, 142, 255, .55); }
 .hud { display: flex; gap: 20px; color: var(--muted); font: 500 13px "DM Mono", monospace; }
 .hud strong { color: var(--ink); font-size: 16px; margin-left: 5px; }
-.game-card { padding: 12px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); box-shadow: 0 20px 80px rgba(0,0,0,.28); backdrop-filter: blur(10px); }
+.game-card { padding: 12px; border: 1px solid rgba(108, 151, 255, .35); border-radius: 20px; background: linear-gradient(145deg, rgba(24, 28, 67, .9), rgba(9, 12, 34, .88)); box-shadow: 0 20px 80px rgba(0,0,0,.45), 0 0 32px rgba(80, 104, 255, .12); backdrop-filter: blur(10px); }
 .canvas-wrap { position: relative; overflow: hidden; border-radius: 12px; background: #131a3a; }
 canvas { display: block; width: 100%; height: auto; image-rendering: auto; }
 .message { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 18px; background: rgba(8, 9, 26, .72); backdrop-filter: blur(5px); }
