@@ -148,12 +148,34 @@ function draw() {
   particles.forEach(p => { ctx.globalAlpha = p.life; ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, 5, 5); }); ctx.globalAlpha = 1;
   if (player.invincible <= 0 || Math.floor(player.invincible / 6) % 2) {
     ctx.fillStyle = "rgba(0, 0, 0, .3)"; ctx.beginPath(); ctx.ellipse(player.x + 14, player.y + player.h + 3, 22, 5, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = "#d8e6ff"; ctx.shadowColor = "#6b8cff"; ctx.shadowBlur = 14;
-    ctx.beginPath(); ctx.roundRect(player.x, player.y, player.w, player.h, 9); ctx.fill(); ctx.shadowBlur = 0;
-    ctx.fillStyle = "#5468df"; ctx.fillRect(player.x + 4, player.y + 8, 20, 21);
-    ctx.fillStyle = "#101738"; ctx.fillRect(player.x + 6, player.y + 13, 16, 8);
-    ctx.fillStyle = "#8ff7e1"; ctx.fillRect(player.x + 8, player.y + 15, 4, 4); ctx.fillRect(player.x + 16, player.y + 15, 4, 4);
-    ctx.fillStyle = "#ff5b9d"; ctx.fillRect(player.x + 6, player.y + 33, 16, 5);
+    const cx = player.x + player.w / 2;
+    ctx.fillStyle = "#f2c7aa"; ctx.shadowColor = "#6b8cff"; ctx.shadowBlur = 12;
+    ctx.beginPath(); ctx.arc(cx, player.y + 9, 8, 0, Math.PI * 2); ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = "#18244f";
+    ctx.beginPath(); ctx.arc(cx, player.y + 7, 8.5, Math.PI, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#101738";
+    ctx.fillRect(cx - 6, player.y + 8, 12, 3);
+    ctx.fillStyle = "#8ff7e1";
+    ctx.fillRect(cx - 4, player.y + 9, 3, 2); ctx.fillRect(cx + 1, player.y + 9, 3, 2);
+    ctx.fillStyle = "#5468df";
+    ctx.beginPath(); ctx.roundRect(player.x + 7, player.y + 17, 14, 18, 5); ctx.fill();
+    ctx.fillStyle = "#8ff7e1"; ctx.fillRect(player.x + 10, player.y + 19, 8, 3);
+    ctx.strokeStyle = "#d8e6ff"; ctx.lineWidth = 4; ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(player.x + 7, player.y + 20); ctx.lineTo(player.x + 2, player.y + 29);
+    ctx.moveTo(player.x + 21, player.y + 20); ctx.lineTo(player.x + 26, player.y + 29);
+    ctx.stroke();
+    ctx.strokeStyle = "#263568"; ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(player.x + 11, player.y + 34); ctx.lineTo(player.x + 8, player.y + 47);
+    ctx.moveTo(player.x + 17, player.y + 34); ctx.lineTo(player.x + 20, player.y + 47);
+    ctx.stroke();
+    ctx.strokeStyle = "#ff5b9d"; ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(player.x + 5, player.y + 47); ctx.lineTo(player.x + 10, player.y + 47);
+    ctx.moveTo(player.x + 18, player.y + 47); ctx.lineTo(player.x + 23, player.y + 47);
+    ctx.stroke();
   }
   ctx.restore();
 }
