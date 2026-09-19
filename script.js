@@ -60,7 +60,7 @@ function finish() {
   gameState = "clear";
   messageTitle.textContent = `ステージクリア！ コイン ${player.coins}/${level.coins.length}`;
   message.classList.remove("hidden");
-  burst(player.x, player.y, "#ffca63");
+  burst(player.x, player.y, "#d7ff3f");
 }
 
 function burst(x, y, color) {
@@ -86,7 +86,7 @@ function update(dt) {
   if (player.y > world.height + 50) hurt();
   level.coins.forEach(c => {
     if (!c.got && Math.hypot(player.x + player.w / 2 - c.x, player.y + player.h / 2 - c.y) < 30) {
-      c.got = true; player.coins++; burst(c.x, c.y, "#ffca63"); updateHud();
+      c.got = true; player.coins++; burst(c.x, c.y, "#d7ff3f"); updateHud();
     }
   });
   level.enemies.forEach(e => {
@@ -107,34 +107,42 @@ function update(dt) {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const sky = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  sky.addColorStop(0, "#080d2b"); sky.addColorStop(.52, "#20265b"); sky.addColorStop(1, "#713f6f");
+  sky.addColorStop(0, "#020617"); sky.addColorStop(.5, "#08143b"); sky.addColorStop(1, "#180d35");
   ctx.fillStyle = sky; ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.save(); ctx.translate(-cameraX, 0);
-  ctx.fillStyle = "#f5d58b"; ctx.shadowColor = "#f5a65b"; ctx.shadowBlur = 30;
+  ctx.fillStyle = "#d9f7ff"; ctx.shadowColor = "#00f5ff"; ctx.shadowBlur = 30;
   ctx.beginPath(); ctx.arc(780, 105, 42, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
+  ctx.fillStyle = "rgba(0, 245, 255, .16)";
+  ctx.fillRect(-100, 404, world.width + 200, 2);
+  ctx.fillRect(-100, 430, world.width + 200, 1);
   for (let x = -150; x < world.width; x += 170) {
-    ctx.fillStyle = `rgba(190, 214, 255, ${.25 + (x % 5) * .03})`;
+    ctx.fillStyle = `rgba(0, 245, 255, ${.25 + (x % 5) * .03})`;
     ctx.beginPath(); ctx.arc(x + 35, 55 + (x * 7 % 150), 1.5, 0, Math.PI * 2); ctx.fill();
   }
-  ctx.fillStyle = "rgba(10, 18, 52, .45)";
+  ctx.fillStyle = "rgba(3, 9, 30, .9)";
   for (let x = -300; x < world.width + 300; x += 230) {
     const height = 70 + (x * 13 % 100);
     ctx.beginPath(); ctx.moveTo(x, 455); ctx.lineTo(x + 115, 455 - height); ctx.lineTo(x + 230, 455); ctx.fill();
+    ctx.fillStyle = x % 460 ? "rgba(255, 43, 214, .6)" : "rgba(0, 245, 255, .65)";
+    for (let wy = 455 - height + 18; wy < 440; wy += 22) {
+      ctx.fillRect(x + 28, wy, 4, 8); ctx.fillRect(x + 92, wy, 4, 8);
+    }
+    ctx.fillStyle = "rgba(3, 9, 30, .9)";
   }
   level.platforms.forEach(p => {
     const platform = ctx.createLinearGradient(0, p.y, 0, p.y + p.h);
-    platform.addColorStop(0, "#263c70"); platform.addColorStop(1, "#111b3c");
+    platform.addColorStop(0, "#10264b"); platform.addColorStop(1, "#050b20");
     ctx.fillStyle = platform; ctx.fillRect(p.x, p.y, p.w, p.h);
-    ctx.fillStyle = "#58e0c1"; ctx.shadowColor = "#58e0c1"; ctx.shadowBlur = 12;
+    ctx.fillStyle = "#00f5ff"; ctx.shadowColor = "#00f5ff"; ctx.shadowBlur = 12;
     ctx.fillRect(p.x, p.y, p.w, 5); ctx.shadowBlur = 0;
     ctx.strokeStyle = "rgba(139, 180, 255, .18)"; ctx.strokeRect(p.x, p.y + 6, p.w, p.h - 6);
   });
   level.coins.forEach(c => {
     if (!c.got) {
       const pulse = 10 + Math.sin(Date.now() / 180 + c.x) * 2;
-      ctx.fillStyle = "#ffcf5a"; ctx.shadowColor = "#ff9d3d"; ctx.shadowBlur = 18;
-      ctx.beginPath(); ctx.arc(c.x, c.y, pulse, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
-      ctx.fillStyle = "#fff4bd"; ctx.beginPath(); ctx.arc(c.x - 3, c.y - 3, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#d7ff3f"; ctx.shadowColor = "#d7ff3f"; ctx.shadowBlur = 18;
+      ctx.beginPath(); ctx.moveTo(c.x, c.y - pulse); ctx.lineTo(c.x + pulse, c.y); ctx.lineTo(c.x, c.y + pulse); ctx.lineTo(c.x - pulse, c.y); ctx.closePath(); ctx.fill(); ctx.shadowBlur = 0;
+      ctx.fillStyle = "#f5ffff"; ctx.fillRect(c.x - 2, c.y - 2, 4, 4);
     }
   });
   level.enemies.forEach(e => {
@@ -143,8 +151,8 @@ function draw() {
     ctx.fillStyle = "#ffb7df"; ctx.fillRect(e.x + 7, e.y + 8, 5, 7); ctx.fillRect(e.x + 19, e.y + 8, 5, 7);
     ctx.fillStyle = "#331842"; ctx.fillRect(e.x + 8, e.y + 26, 14, 4);
   });
-  ctx.fillStyle = "#ffcf5a"; ctx.shadowColor = "#ffcf5a"; ctx.shadowBlur = 16; ctx.fillRect(3500, 275, 6, 180); ctx.shadowBlur = 0;
-  ctx.fillStyle = "#ff4f9a"; ctx.beginPath(); ctx.moveTo(3506, 280); ctx.lineTo(3570, 300); ctx.lineTo(3506, 325); ctx.fill();
+  ctx.fillStyle = "#00f5ff"; ctx.shadowColor = "#00f5ff"; ctx.shadowBlur = 16; ctx.fillRect(3500, 275, 6, 180); ctx.shadowBlur = 0;
+  ctx.fillStyle = "#ff2bd6"; ctx.beginPath(); ctx.moveTo(3506, 280); ctx.lineTo(3570, 300); ctx.lineTo(3506, 325); ctx.fill();
   particles.forEach(p => { ctx.globalAlpha = p.life; ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, 5, 5); }); ctx.globalAlpha = 1;
   if (player.invincible <= 0 || Math.floor(player.invincible / 6) % 2) {
     ctx.fillStyle = "rgba(0, 0, 0, .3)"; ctx.beginPath(); ctx.ellipse(player.x + 14, player.y + player.h + 3, 22, 5, 0, 0, Math.PI * 2); ctx.fill();
